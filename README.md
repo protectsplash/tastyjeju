@@ -1,4 +1,4 @@
-# airbnb-clone
+# Tasty JeJu
 
 ## 멤버
 Front-end : Splash, YunseCode
