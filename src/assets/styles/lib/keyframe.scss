@@ -1,0 +1,22 @@
+/**
+* usage animation: slide_down 2s infinite;
+*/
+@keyframes slide_down {
+  from {
+    transform: scale(.3, .75) translateY(-80px);
+  }
+  to {
+    transform: scale(1, 1) translateY(0px);
+  }
+}
+
+@keyframes slide_up {
+  from {
+    transform: scale(1, 1) translateY(0px);
+  }
+  to {
+    transform: scale(.3, .75) translateY(-80px);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
