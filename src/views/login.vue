@@ -12,14 +12,22 @@
 									</v-toolbar>
 									<v-card-text>
 										<v-form>
-											<v-text-field label="Login" name="login" prepend-icon="mdi-account" type="text"></v-text-field>
+											<v-text-field v-model="email" label="Login" name="login" prepend-icon="mdi-account" type="text"></v-text-field>
 
-											<v-text-field id="password" label="Password" name="password" prepend-icon="mdi-lock" type="password"></v-text-field>
+											<v-text-field
+												v-model="password"
+												id="password"
+												label="Password"
+												name="password"
+												prepend-icon="mdi-lock"
+												type="password"
+												@keyup.enter="login"
+											></v-text-field>
 										</v-form>
 									</v-card-text>
 									<v-card-actions>
 										<v-spacer></v-spacer>
-										<v-btn color="primary">Login</v-btn>
+										<v-btn color="primary" @click="login">Login</v-btn>
 									</v-card-actions>
 								</v-card>
 							</v-col>
@@ -68,7 +76,10 @@ export default {
 	},
 	methods: {
 		login() {
-			const data = {}
+			const data = {
+				identifier: this.email,
+				password: this.password,
+			}
 			this.$store
 				.dispatch('login', data)
 				.then(res => {
