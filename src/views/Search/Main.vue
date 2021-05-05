@@ -109,7 +109,6 @@ export default {
 		this.$store
 			.dispatch('getSearchForm', this.$route.query)
 			.then(res => {
-				console.log(res.data) // 이거로 요청 데이터 확일할 수 있음.
 				let { facet_groups, nhits, parameters, records } = res.data
 				this.$store.state.totalLists = nhits
 				this.$store.state.airBnbLists = records
@@ -122,6 +121,7 @@ export default {
 					},
 					zoom: 13,
 				})
+				console.log(this.$store.state.airBnbLists);
 				// 마커
 				this.$store.state.airBnbLists.map(item => {
 					const marker = new window.google.maps.Marker({
@@ -131,9 +131,11 @@ export default {
 							lng: item.fields.geolocation[1],
 						},
 					})
-					marker.addListener('click', data => {
-						console.log(data.domEvent.path)
-					})
+					this.attachSecretMessage(marker, item);
+					// marker.addListener('click', data => {
+					// 	console.log(data)
+					// 	this.map.setCenter(marker.getPosition());
+					// })
 				})
 			})
 			.catch(err => {
@@ -162,6 +164,11 @@ export default {
 		},
 	},
 	methods: {
+		attachSecretMessage(marker, secretMessage) {
+marker.addListener("click", () => {
+	console.log(secretMessage)
+})
+		},
 		splitString(str, index) {
 			if (str) return str.split(',')[index]
 		},
