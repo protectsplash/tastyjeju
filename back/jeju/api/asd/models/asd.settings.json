@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "asds",
+  "info": {
+    "name": "asd"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "asd": {
+      "type": "string"
+    }
+  }
+}

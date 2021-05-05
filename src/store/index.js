@@ -87,7 +87,11 @@ export default new Vuex.Store({
 		getLoc({}, input) {
 			return new Promise((resolve, reject) => {
 				let config = {
-					headers: { 'X-NCP-APIGW-API-KEY-ID': '5alq9vyc06', 'X-NCP-APIGW-API-KEY': '7f24wafxAeIE6nEeDN9t7nXFGG13hnW3PDSXOVwp' },
+					headers: {
+						'Access-Control-Allow-Origin': '*',
+						'X-NCP-APIGW-API-KEY-ID': '5alq9vyc06',
+						'X-NCP-APIGW-API-KEY': '7f24wafxAeIE6nEeDN9t7nXFGG13hnW3PDSXOVwp',
+					},
 				}
 				axios
 					.get(`https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=${input.loc}`, config)

@@ -124,12 +124,15 @@ export default {
 				})
 				// 마커
 				this.$store.state.airBnbLists.map(item => {
-					new window.google.maps.Marker({
+					const marker = new window.google.maps.Marker({
 						map: this.map,
 						position: {
 							lat: item.fields.geolocation[0],
 							lng: item.fields.geolocation[1],
 						},
+					})
+					marker.addListener('click', data => {
+						console.log(data.domEvent.path)
 					})
 				})
 			})
