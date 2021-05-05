@@ -9,4 +9,3 @@ export { default as Body1 } from './body-1'
 export { default as Body2 } from './body-2'
 export { default as Btn1 } from './btn-1'
 export { default as Btn2 } from './btn-2'
-

@@ -38,4 +38,4 @@ module.exports = {
 		sourceType: 'module',
 		allowImportExportEverywhere: true,
 	},
-};
+}

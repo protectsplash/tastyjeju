@@ -43,8 +43,9 @@ export default new Vuex.Store({
 	},
 	mutations: {},
 	actions: {
+		// eslint-disable-next-line no-empty-pattern
 		getSearchForm({}, query) {
-			let { location, checkin, checkout, adults, children, infants } = query // 인자로 받은 URL 쿼리를 구조분해
+			let { location } = query // 인자로 받은 URL 쿼리를 구조분해
 			const params = {
 				// param 이 너무 길기에 변수로 먼저 정의
 				dataset: 'airbnb-listings', // 데이터베이스 이름

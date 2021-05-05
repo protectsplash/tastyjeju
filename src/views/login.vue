@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<!--  Header  -->
-		<Header :header="header" :taps="tabs" />
 		<div style="margin-top:200px">
 			<v-text-field v-model="email" label="email"></v-text-field>
 			<v-text-field v-model="password" label="password"></v-text-field>
@@ -10,13 +9,8 @@
 </template>
 
 <script>
-import Header from '@/views/Header'
-
 export default {
 	name: 'Home',
-	components: {
-		Header,
-	},
 	computed: {
 		header() {
 			return {

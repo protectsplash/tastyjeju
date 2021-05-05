@@ -6,20 +6,7 @@
 				<v-col class="px-12 py-16" sm="12" md="6">
 					<!--    타이틀 및 필터      -->
 					<v-row class="flex-column pa-0">
-						<span class="body-2">300개 이상의 숙소 &middot; 4월 30일 - 5월 22일 &middot; 게스트 1명</span>
-						<heading-4 class="font-weight-bold mt-2">파리의 숙소</heading-4>
-						<div class="mt-4 pa-0">
-							<btn-1 class="mr-2" v-for="(text, index) in filterBtnGroup" :key="index">{{ text }}</btn-1>
-						</div>
-						<div class="my-6 text-body-2" :class="$style.filterDescription">
-							<img width="40" height="40" alt src="https://a0.muscache.com/airbnb/static/packages/icon-uc-suitcase.2b1ee4bb.gif" />
-							<span class="ml-3"
-								><strong>여행이 2일 남았습니다.</strong> 지금 바로 예약할 수 있는 숙소를 보려면 즉시 예약 필터를 사용하세요.</span
-							>
-						</div>
-						<v-divider>
-							inset
-						</v-divider>
+						<heading-4 class="font-weight-bold mt-2">제주도 식당 소개</heading-4>
 					</v-row>
 					<!--    숙소 결과 리스트     -->
 					<v-row class="px-0 pb-3 pt-5" :class="$style.hotelContainer" v-for="item in $store.state.airBnbLists" :key="item.recordid">
@@ -67,10 +54,6 @@
 						<div class="text-center">
 							<v-pagination v-model="page" :length="4" prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination>
 						</div>
-						<div class="text-body-2 text-center mt-5">숙소 300개 이상 중 1 - 20</div>
-						<div class="text-caption text-center mt-6" :class="$style.hotelDescription">
-							추가 수수료가 부과됩니다. 세금도 부과될 수 있습니다.
-						</div>
 					</v-row>
 				</v-col>
 
@@ -86,30 +69,30 @@
 </template>
 <script>
 import { throttle } from 'lodash'
-import { Heading4, Btn1 } from '@/components'
+import { Heading4 } from '@/components'
 
 export default {
 	name: 'Main',
-	components: { Heading4, Btn1 },
+	components: { Heading4 },
 	mounted() {
-		const data = {
-			loc: '제주특별자치도 제주시 수목원길 3-1',
-		}
-		this.$store
-			.dispatch('getLoc', data)
-			.then(data => {
-				console.log(data.latt)
-				console.log(data.longt)
-			})
-			.catch(err => {
-				console.log(err)
-			})
+		// const data = {
+		// 	loc: '제주특별자치도 제주시 수목원길 3-1',
+		// }
+		// this.$store
+		// 	.dispatch('getLoc', data)
+		// 	.then(data => {
+		// 		console.log(data.latt)
+		// 		console.log(data.longt)
+		// 	})
+		// 	.catch(err => {
+		// 		console.log(err)
+		// 	})
 
 		// 서치 데이터 페칭
 		this.$store
 			.dispatch('getSearchForm', this.$route.query)
 			.then(res => {
-				let { facet_groups, nhits, parameters, records } = res.data
+				let { nhits, records } = res.data
 				this.$store.state.totalLists = nhits
 				this.$store.state.airBnbLists = records
 
@@ -121,7 +104,7 @@ export default {
 					},
 					zoom: 13,
 				})
-				console.log(this.$store.state.airBnbLists);
+				console.log(this.$store.state.airBnbLists)
 				// 마커
 				this.$store.state.airBnbLists.map(item => {
 					const marker = new window.google.maps.Marker({
@@ -131,7 +114,7 @@ export default {
 							lng: item.fields.geolocation[1],
 						},
 					})
-					this.attachSecretMessage(marker, item);
+					this.attachSecretMessage(marker, item)
 					// marker.addListener('click', data => {
 					// 	console.log(data)
 					// 	this.map.setCenter(marker.getPosition());
@@ -165,9 +148,9 @@ export default {
 	},
 	methods: {
 		attachSecretMessage(marker, secretMessage) {
-marker.addListener("click", () => {
-	console.log(secretMessage)
-})
+			marker.addListener('click', () => {
+				console.log(secretMessage)
+			})
 		},
 		splitString(str, index) {
 			if (str) return str.split(',')[index]

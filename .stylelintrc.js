@@ -10,4 +10,4 @@ module.exports = {
 		'selector-list-comma-newline-after': null,
 		'no-descending-specificity': null,
 	},
-};
+}
