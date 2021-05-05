@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import qs from 'qs' // params 를 serialize 해주는 라이브러리
 
 // axios.interceptors.request.use(config => {
 //   window.console.log(config);
