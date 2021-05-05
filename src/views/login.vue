@@ -55,15 +55,6 @@ export default {
 			}
 		},
 	},
-	// data: () => ({
-	// 	tabs: [
-	// 		{ id: 1, name: '숙소' },
-	// 		{ id: 2, name: '체험' },
-	// 		{ id: 3, name: '온라인 체험' },
-	// 	],
-	// 	email: '',
-	// 	password: '',
-	// }),
 	data() {
 		return {
 			tabs: [
@@ -74,6 +65,19 @@ export default {
 			email: '',
 			password: '',
 		}
+	},
+	methods: {
+		login() {
+			const data = {}
+			this.$store
+				.dispatch('login', data)
+				.then(res => {
+					console.log(res)
+				})
+				.catch(err => {
+					console.log(err)
+				})
+		},
 	},
 }
 </script>
