@@ -13,12 +13,22 @@
 									<v-card-text>
 										<v-form>
 											<v-text-field
-												v-model="email"
-												label="Login"
-												name="login"
+												v-model="username"
+												label="Username"
+												name="username"
 												prepend-icon="mdi-account"
 												type="text"
-												@keyup.enter="focusPwd()"
+												@keyup.enter="focusEmail()"
+											></v-text-field>
+
+											<v-text-field
+												v-model="email"
+												id="email"
+												label="Email"
+												name="email"
+												prepend-icon="mdi-lock"
+												type="text"
+												@keyup.enter="focuspPssword()"
 											></v-text-field>
 
 											<v-text-field
@@ -26,16 +36,6 @@
 												id="password"
 												label="Password"
 												name="password"
-												prepend-icon="mdi-lock"
-												type="password"
-												@keyup.enter="focusPwdAgain()"
-											></v-text-field>
-
-											<v-text-field
-												v-model="passwordAgain"
-												id="passwordAgain"
-												label="Password Again"
-												name="passwordAgain"
 												prepend-icon="mdi-lock"
 												type="password"
 												@keyup.enter="signUp"
@@ -82,23 +82,23 @@ export default {
 	},
 	data() {
 		return {
+			username: '',
 			email: '',
 			password: '',
-			passwordAgain: '',
 		}
 	},
 	methods: {
-		focusPwd() {
-			document.getElementById('password').click()
+		focusEmail() {
+			document.getElementById('email').click()
 		},
-		focusPwdAgain() {
-			document.getElementById('passwordAgain').click()
+		focuspPssword() {
+			document.getElementById('password').click()
 		},
 		signUp() {
 			const data = {
-				username: 'yunseasdasdasd',
-				email: 'asasdasdd@gmail.com',
-				password: 'asasdasdasdd',
+				username: this.username,
+				email: this.email,
+				password: this.password,
 				// email: this.email,
 				// password: this.password,
 			}
