@@ -23,18 +23,6 @@ const BASE_API = 'http://localhost:1337'
 
 export default new Vuex.Store({
 	state: {
-		// Header
-		initAnimation: false,
-		isScrollTop: window.pageYOffset < 40,
-		isSearchBtnClicked: false,
-		navigation: 1,
-		popup: [0, 0, 0],
-		overlay: false,
-		location: '',
-		checkIn: '',
-		checkOut: '',
-		guests: [0, 0, 0],
-		activeTab: 1,
 		// Search
 		totalLists: 0,
 		airBnbLists: null,
@@ -47,7 +35,16 @@ export default new Vuex.Store({
 			return new Promise((resolve, reject) => {
 				axios
 					.post(BASE_API + '/auth/local', input)
-					.then(res => resolve(res))
+					.then(data => resolve(data))
+					.catch(err => reject(err))
+			})
+		},
+		// eslint-disable-next-line no-empty-pattern
+		signUp({}, input) {
+			return new Promise((resolve, reject) => {
+				axios
+					.post(BASE_API + '/auth/local/register', input)
+					.then(data => resolve(data))
 					.catch(err => reject(err))
 			})
 		},

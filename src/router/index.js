@@ -3,9 +3,16 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+import signup from '../views/signup.vue'
+
 const routes = [
 	{ path: '/', name: 'Home', component: () => import('../views/login.vue') },
 	{ path: '/search', name: 'Search', component: () => import('../views/search.vue') },
+	{
+		path: '/signup',
+		name: 'signup',
+		component: signup,
+	},
 ]
 
 const router = new VueRouter({

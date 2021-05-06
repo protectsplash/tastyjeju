@@ -8,7 +8,7 @@
 							<v-col cols="12" sm="8" md="4">
 								<v-card class="elevation-12">
 									<v-toolbar color="primary" dark flat>
-										<v-toolbar-title>Login form</v-toolbar-title>
+										<v-toolbar-title>SignUp form</v-toolbar-title>
 									</v-toolbar>
 									<v-card-text>
 										<v-form>
@@ -28,13 +28,23 @@
 												name="password"
 												prepend-icon="mdi-lock"
 												type="password"
-												@keyup.enter="login"
+												@keyup.enter="focusPwdAgain()"
+											></v-text-field>
+
+											<v-text-field
+												v-model="passwordAgain"
+												id="passwordAgain"
+												label="Password Again"
+												name="passwordAgain"
+												prepend-icon="mdi-lock"
+												type="password"
+												@keyup.enter="signUp"
 											></v-text-field>
 										</v-form>
 									</v-card-text>
 									<v-card-actions>
 										<v-spacer></v-spacer>
-										<v-btn color="primary" @click="login">Login</v-btn>
+										<v-btn color="primary" @click="signUp">Sign In</v-btn>
 									</v-card-actions>
 								</v-card>
 							</v-col>
@@ -72,29 +82,30 @@ export default {
 	},
 	data() {
 		return {
-			tabs: [
-				{ id: 1, name: '숙소' },
-				{ id: 2, name: '체험' },
-				{ id: 3, name: '온라인 체험' },
-			],
 			email: '',
 			password: '',
+			passwordAgain: '',
 		}
 	},
 	methods: {
 		focusPwd() {
 			document.getElementById('password').click()
 		},
-		login() {
+		focusPwdAgain() {
+			document.getElementById('passwordAgain').click()
+		},
+		signUp() {
 			const data = {
-				identifier: this.email,
-				password: this.password,
+				username: 'yunseasdasdasd',
+				email: 'asasdasdd@gmail.com',
+				password: 'asasdasdasdd',
+				// email: this.email,
+				// password: this.password,
 			}
 			this.$store
-				.dispatch('login', data)
+				.dispatch('signUp', data)
 				.then(({ data }) => {
-					sessionStorage.setItem('protect-t', data.jwt)
-					this.$router.push({ name: 'Search' })
+					console.log(data)
 				})
 				.catch(err => {
 					console.log(err)
