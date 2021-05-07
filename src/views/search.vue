@@ -1,7 +1,10 @@
 <template>
 	<v-main>
 		<v-container class="pa-0 mt-4" fluid>
-			<v-row class="pt-16" style="position: relative">
+			<v-col class="px-12" sm="12" md="6">
+				<v-layout justify-end> Hello {{ meData.username }}! </v-layout>
+			</v-col>
+			<v-row style="position: relative">
 				<!--    리스트 결과 column      -->
 				<v-col class="px-12 py-16" sm="12" md="6">
 					<!--    타이틀 및 필터      -->
@@ -9,7 +12,7 @@
 						<heading-4 class="font-weight-bold mt-2">제주도 식당 소개</heading-4>
 					</v-row>
 					<!--    숙소 결과 리스트     -->
-					<v-row class="px-0 pb-3 pt-5" :class="$style.hotelContainer" v-for="item in 3" :key="item.recordid">
+					<v-row class="px-0 pb-3 pt-5" :class="$style.hotelContainer" v-for="item in this.resList" :key="item.recordid">
 						<v-col class="pa-0" cols="5">
 							<img
 								src="http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg"
@@ -21,24 +24,22 @@
 						</v-col>
 						<v-col class="pl-4 py-0" cols="7">
 							<div class="text-body-2 text--disabled" :style="{ width: '100%', position: 'relative' }">
-								<span>neighbourhood_cleansed 의 room_type</span>
+								<span>{{ item.type }}</span>
 								<v-btn fab icon small :style="{ position: 'absolute', right: '-22px', top: '-7px' }">
 									<v-icon>favorite_border</v-icon>
 								</v-btn>
 							</div>
-							<div class="text-h6">name</div>
+							<div class="text-h6">{{ item.title }}</div>
 							<v-divider class="my-2" width="30">
 								inset
 							</v-divider>
-							<div class="text-body-2" :class="$style.hotelDescription">
-								최대 인원 guests_included}명 &middot; 침실 bedrooms개 &middot; 침대 beds개 &middot; 욕실 bathrooms개
+							<div class="text-body-2 pb-13" :class="$style.hotelDescription">
+								{{ item.food }}
 							</div>
-							<div class="text-body-2 mt-1 mb-2" :class="$style.hotelDescription">
-								<!-- {{ splitString(item.fields.amenities, 0) }} &middot; {{ splitString(item.fields.amenities, 1) }} &middot;
-								{{ splitString(item.fields.amenities, 2) }} -->
+							<!-- <div class="text-body-2 mt-1 mb-2" :class="$style.hotelDescription">
 								여기에 뭐가 있음
-							</div>
-							<div class="mt-16" :style="{ position: 'relative', width: '100%' }">
+							</div> -->
+							<div :style="{ position: 'relative', width: '100%' }">
 								<v-icon color="pink" size="19">star</v-icon>
 								<div>점수</div>
 								<div>후기</div>
@@ -74,10 +75,27 @@ import { throttle } from 'lodash'
 import { Heading4 } from '@/components'
 import list from '@/dummy/list.json'
 export default {
-	name: 'Main',
-	components: { Heading4 },
+	data: () => ({
+		filterBtnGroup: ['유연한 환불 정책', '숙소 유형', '요금', '즉시 예약', '필터 추가하기'],
+		map: null,
+		mapPosition: false,
+		infoWindow: '',
+		pos: {},
+		meData: '',
+		resList: '',
+	}),
+
 	mounted() {
-		console.log(list)
+		this.$store
+			.dispatch('meData')
+			.then(({ data }) => {
+				// console.log(data)
+				this.meData = data
+			})
+			.catch(err => {
+				console.log(err)
+			})
+		this.resList = list
 		this.infoWindow = new window.google.maps.InfoWindow()
 		// Try HTML5 geolocation.
 		navigator.geolocation.getCurrentPosition(position => {
@@ -157,27 +175,6 @@ export default {
 		// 스크롤 이벤트 등록
 		window.addEventListener('scroll', throttle(this.onScroll, 100))
 	},
-	updated() {},
-	destroyed() {
-		window.removeEventListener('scroll', this.onScroll)
-	},
-	data: () => ({
-		filterBtnGroup: ['유연한 환불 정책', '숙소 유형', '요금', '즉시 예약', '필터 추가하기'],
-		map: null,
-		mapPosition: false,
-		infoWindow: '',
-		pos: {},
-	}),
-	computed: {
-		page: {
-			get() {
-				return this.$store.state.pagination
-			},
-			set(page) {
-				this.$store.state.pagination = page
-			},
-		},
-	},
 	methods: {
 		attachSecretMessage(marker, secretMessage) {
 			marker.addListener('click', () => {
@@ -197,6 +194,21 @@ export default {
 			window.pageYOffset < 4400 ? (this.mapPosition = false) : (this.mapPosition = true)
 		},
 	},
+	destroyed() {
+		window.removeEventListener('scroll', this.onScroll)
+	},
+	computed: {
+		page: {
+			get() {
+				return this.$store.state.pagination
+			},
+			set(page) {
+				this.$store.state.pagination = page
+			},
+		},
+	},
+
+	components: { Heading4 },
 }
 </script>
 <style module lang="scss">

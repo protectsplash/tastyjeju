@@ -48,6 +48,19 @@ export default new Vuex.Store({
 					.catch(err => reject(err))
 			})
 		},
+		// eslint-disable-next-line no-empty-pattern
+		meData({}) {
+			return new Promise((resolve, reject) => {
+				axios
+					.get(BASE_API + '/users/me', {
+						headers: {
+							Authorization: 'Bearer ' + `${sessionStorage.getItem('protect-t')}`,
+						},
+					})
+					.then(data => resolve(data))
+					.catch(err => reject(err))
+			})
+		},
 	},
 	modules: {},
 	strict: false,
