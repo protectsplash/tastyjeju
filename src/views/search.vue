@@ -37,7 +37,7 @@
 									"
 									lazy-src="http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg"
 									:src="
-										'http://localhost:1337' +
+										'http://192.168.0.38/' +
 											item.comment
 												.map(x => x.img)
 												.filter(y => y !== null)
@@ -222,6 +222,8 @@
 import { throttle } from 'lodash'
 import { Heading4 } from '@/components'
 import list from '@/dummy/list.json'
+import mapIcon from '../assets/map.png'
+
 export default {
 	data: () => ({
 		likes: [],
@@ -373,7 +375,6 @@ export default {
 				.dispatch('searchLike')
 				.then(res => {
 					this.likes = res.data
-					console.log(res)
 				})
 				.catch(err => {
 					console.log({ err })
@@ -390,7 +391,6 @@ export default {
 			this.$store
 				.dispatch('searchComment')
 				.then(res => {
-					console.log(res.data)
 					this.resList = []
 					const dataSet = list
 					dataSet.forEach(list => {
@@ -461,6 +461,7 @@ export default {
 							}
 						})
 					})
+
 					this.infoWindow = new window.google.maps.InfoWindow()
 					// Try HTML5 geolocation.
 					navigator.geolocation.getCurrentPosition(position => {
@@ -481,16 +482,37 @@ export default {
 						},
 						zoom: 13,
 					})
-					list.forEach(element => {
-						const marker = new window.google.maps.Marker({
-							map: this.map,
-							position: {
-								lat: element.lat,
-								lng: element.lng,
-							},
+					// list.forEach(element => {
+					// 	if (element.adress === '제주특별자치도 제주시 수목원길 3-1 ') {
+					// 		console.log('asdasdasddsad')
+					// 	}
+					// })
+					res.data.forEach(comment => {
+						list.forEach(element => {
+							if (element.adress === comment.adress) {
+								const marker = new window.google.maps.Marker({
+									map: this.map,
+									position: {
+										lat: element.lat,
+										lng: element.lng,
+									},
+									icon: mapIcon,
+								})
+								this.attachSecretMessage(marker, element)
+								console.log(element)
+							} else {
+								const marker = new window.google.maps.Marker({
+									map: this.map,
+									position: {
+										lat: element.lat,
+										lng: element.lng,
+									},
+								})
+								this.attachSecretMessage(marker, element)
+							}
 						})
-						this.attachSecretMessage(marker, element)
 					})
+
 					// 스크롤 이벤트 등록
 					window.addEventListener('scroll', throttle(this.onScroll, 100))
 				})
