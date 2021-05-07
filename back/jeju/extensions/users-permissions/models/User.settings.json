@@ -62,6 +62,10 @@
     "comments": {
       "via": "users_permissions_user",
       "collection": "comment"
+    },
+    "likes": {
+      "via": "users_permissions_user",
+      "collection": "like"
     }
   }
 }

@@ -75,6 +75,59 @@ export default new Vuex.Store({
 			})
 		},
 		// eslint-disable-next-line no-empty-pattern
+		searchComment({}) {
+			return new Promise((resolve, reject) => {
+				axios
+					.get(BASE_API + '/comments', {
+						headers: {
+							Authorization: 'Bearer ' + `${sessionStorage.getItem('protect-t')}`,
+						},
+					})
+					.then(data => resolve(data))
+					.catch(err => reject(err))
+			})
+		},
+		// eslint-disable-next-line no-empty-pattern
+		createLike({}, input) {
+			return new Promise((resolve, reject) => {
+				axios
+					.post(BASE_API + '/likes', input, {
+						headers: {
+							Authorization: 'Bearer ' + `${sessionStorage.getItem('protect-t')}`,
+						},
+					})
+					.then(data => resolve(data))
+					.catch(err => reject(err))
+			})
+		},
+		// eslint-disable-next-line no-empty-pattern
+		searchLike({}) {
+			return new Promise((resolve, reject) => {
+				axios
+					.get(BASE_API + '/likes', {
+						headers: {
+							Authorization: 'Bearer ' + `${sessionStorage.getItem('protect-t')}`,
+						},
+					})
+					.then(data => resolve(data))
+					.catch(err => reject(err))
+			})
+		},
+		// eslint-disable-next-line no-empty-pattern
+		deleteLike({}, input) {
+			console.log(input)
+			return new Promise((resolve, reject) => {
+				axios
+					.delete(BASE_API + `/likes/${input.id}`, {
+						headers: {
+							Authorization: 'Bearer ' + `${sessionStorage.getItem('protect-t')}`,
+						},
+					})
+					.then(data => resolve(data))
+					.catch(err => reject(err))
+			})
+		},
+		// eslint-disable-next-line no-empty-pattern
 		upload({}, input) {
 			return new Promise((resolve, reject) => {
 				axios
