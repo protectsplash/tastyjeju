@@ -61,6 +61,33 @@ export default new Vuex.Store({
 					.catch(err => reject(err))
 			})
 		},
+		// eslint-disable-next-line no-empty-pattern
+		createComment({}, input) {
+			return new Promise((resolve, reject) => {
+				axios
+					.post(BASE_API + '/comments', input, {
+						headers: {
+							Authorization: 'Bearer ' + `${sessionStorage.getItem('protect-t')}`,
+						},
+					})
+					.then(data => resolve(data))
+					.catch(err => reject(err))
+			})
+		},
+		// eslint-disable-next-line no-empty-pattern
+		upload({}, input) {
+			return new Promise((resolve, reject) => {
+				axios
+					.post(BASE_API + '/upload', input, {
+						headers: {
+							Authorization: 'Bearer ' + `${sessionStorage.getItem('protect-t')}`,
+							'content-type': 'multipart/form-data',
+						},
+					})
+					.then(data => resolve(data))
+					.catch(err => reject(err))
+			})
+		},
 	},
 	modules: {},
 	strict: false,
